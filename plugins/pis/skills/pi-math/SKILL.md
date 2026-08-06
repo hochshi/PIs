@@ -1,51 +1,92 @@
 ---
 name: pi-math
-description: Reduce low-value definitions and audit mathematical notation without changing meaning. Use when writing or editing proofs, papers, lecture notes, specifications, equations, or other mathematical prose; distinguish first definitions, notation declarations, reminders, local scope, and legitimate redefinitions.
+description: Reduce unnecessary definitions and redefinitions in generated mathematical writing without changing meaning. Use when writing or editing proofs, papers, lecture notes, specifications, or other mathematical prose where terms, symbols, or assumptions may be repeated. Distinguishes first definitions, notation declarations, reminders, local scope, and legitimate redefinitions.
 ---
 
 # PI Math
 
-Optimize in this order:
+Define each mathematical object once per scope. Reuse it thereafter. Shorter
+writing is the result; preserving meaning is the constraint.
 
-1. Preserve mathematical correctness.
-2. Resolve undefined symbols, collisions, scope errors, and unit conflicts.
-3. Among correct alternatives, minimize introduced notation and indirection.
+## Classify before cutting
 
-Do not repair an undefined symbol by automatically defining it. Use this order:
+Keep an internal ledger of each term or symbol's meaning and scope while
+writing. Do not print the ledger unless asked.
 
-1. remove or inline it;
-2. reuse existing notation;
-3. explain the expression in prose;
-4. introduce a definition only when repeated use or conceptual importance earns it.
+| Role | Test | Treatment |
+|---|---|---|
+| **First definition** | Introduces new mathematical content in the visible scope. | State it once, including every necessary domain, quantifier, hypothesis, and dependence. |
+| **Notation declaration** | Assigns a symbol or name to an object already defined. | Declare the notation once; do not present it as a new concept. |
+| **Reminder** | Recalls an earlier definition without changing it. | Use only when distance or ambiguity warrants it; keep it shorter than the original and cite it when possible. |
+| **Local definition** | Introduces a meaning inside a proof, example, case, or other bounded scope. | Use it only inside that scope. A later outer-scope definition may be a genuine first definition there. |
+| **Legitimate redefinition** | Changes meaning because the scope, hypotheses, domain, convention, or parameterization changed. | Make the changed context explicit. Never silently overwrite the earlier meaning. |
 
-A symbol normally fails the utility test when it is used once, abbreviates a
-short expression or one-step transformation, aliases another name, or creates
-a definition chain. Keep conventional notation and names that expose a central
-object or replace a genuinely long repeated expression.
+## Definition ladder
 
-## Workflow
+For every apparent definition, stop at the first matching case:
 
-Draft the mathematical text directly. Resolve paths relative to this
-`SKILL.md`, save the draft to a temporary Markdown file, and run:
+1. The same meaning is already available in the current scope: use it without
+   restating it.
+2. The reader may reasonably lose the reference: add a short reminder, not a
+   second definition.
+3. Only a symbol or abbreviation is new: write a notation declaration.
+4. The meaning is new in this scope: write the first definition at first use.
+5. The meaning intentionally changes: state the new scope or changed condition,
+   then redefine it explicitly.
 
-```bash
-python3 scripts/audit_math.py <draft.md>
-```
+Do not front-load definitions that are never used. Do not delete a definition
+merely because its term appeared earlier: appearance, notation, and definition
+are different events.
 
-Treat the JSON as candidate evidence, not mathematical truth. Repair confirmed
-findings using the order above. Do not increase the number of introduced
-symbols merely to clear an audit warning. Run the audit once more and return
-only the revised mathematical text unless the user asked for a review.
+## Editing pass
 
-If the script cannot run, perform the same checks manually. In either case:
+When revising existing text:
 
-- permit a definition immediately after its first equation;
-- recognize binders and unambiguous standard notation;
-- keep local definitions inside their scope;
-- make legitimate redefinitions explicit;
-- preserve domains, quantifiers, hypotheses, dependencies, conventions, and
-  exceptional cases needed for correctness; and
-- flag genuine ambiguity instead of inventing notation to hide it.
+1. Locate the first complete definition in each scope.
+2. Preserve it and every clause needed for correctness.
+3. Delete later verbatim restatements, or turn them into reminders when the
+   reader needs orientation.
+4. Keep notation declarations, local definitions, and explicit legitimate
+   redefinitions distinct.
+5. If two passages may differ mathematically, keep both until their equivalence
+   is established.
 
-For review tasks, report confirmed findings as `undefined`, `collision`,
-`unit-conflict`, `inline`, `reminder`, `notation`, `local`, or `redefine`.
+## Correctness boundary
+
+Never shorten away a domain or codomain, quantifier, hypothesis, dependency,
+exceptional case, convention, or scope boundary that changes the statement.
+Do not merge concepts because their names or formulas look similar. Treat an
+overloaded symbol as a new declaration when its scope or meaning changes.
+
+When uncertain whether a repetition is redundant, preserve it and flag the
+ambiguity. A slightly repetitive correct definition is better than a concise
+false one.
+
+## Examples
+
+Repeated definition:
+
+> A sequence is Cauchy if ... . Later: Recall that a sequence is Cauchy if ... .
+
+Prefer:
+
+> A sequence is Cauchy if ... . Later: For the Cauchy sequence defined above, ... .
+
+Notation is not a second definition:
+
+> Let \(C(X)\) denote the already-defined space of continuous functions on \(X\).
+
+Local scope may reuse a symbol:
+
+> In this proof, set \(r=\lVert x\rVert\). After the proof, that local meaning expires.
+
+Legitimate redefinition must announce the change:
+
+> For this section only, "graph" means a finite simple graph.
+
+## Output
+
+For writing tasks, return the revised mathematical text without a definition
+ledger or change log unless requested. For review tasks, identify each later
+occurrence as `delete`, `reminder`, `notation`, `local`, or `redefine`, and cite
+the first controlling definition.

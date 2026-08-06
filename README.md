@@ -116,15 +116,31 @@ proof-local definitions, and legitimate redefinitions separate so brevity
 cannot silently change the mathematics.
 
 Ask your agent to use `ponytail-math` while writing or editing a proof, paper,
-or set of notes. Skill-capable hosts discover it from `skills/`; Codex users can
-invoke `@ponytail-math`. The skill keeps its definition ledger internal and
-returns clean mathematical text unless you ask for a review report.
+or set of notes. Skill-capable hosts discover it from `skills/`; ChatGPT users
+can select Math Ponytail from the `@` menu, and Codex users can invoke
+`$ponytail-math`. The skill keeps its definition ledger internal and returns
+clean mathematical text unless you ask for a review report.
 
 ## Install
 
 The most effort ponytail will ever ask of you:
 
-The Claude Code and Codex plugins run two tiny Node.js lifecycle hooks, so `node` needs to be on your PATH (note for Nix/nvm users: it must be on the non-interactive shell's PATH). If it isn't, the skills still work, the always-on activation just stays quiet instead of erroring on every prompt.
+### ChatGPT (including regular Chat)
+
+This fork is a skill-only plugin: it needs no app connection or external
+service. Import the marketplace from `hochshi/math-ponytail` into your ChatGPT
+workspace, install **Math Ponytail** under **Settings → Plugins**, and start a
+new regular Chat conversation. Select **Math Ponytail** from the `@` menu when
+you want an explicit comparison run.
+
+Until this branch is merged, import ref `agent/math-definition-discipline`.
+Installing the skill locally in Codex does not install it in ChatGPT; the
+ChatGPT workspace must import the plugin separately.
+
+The Claude Code plugin and other hook-capable adapters run two tiny Node.js
+lifecycle hooks, so `node` needs to be on your PATH (note for Nix/nvm users:
+it must be on the non-interactive shell's PATH). The ChatGPT-compatible plugin
+is instruction-only and needs no local runtime.
 
 ### Claude Code
 

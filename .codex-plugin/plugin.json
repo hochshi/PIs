@@ -1,29 +1,28 @@
 {
-  "name": "ponytail",
+  "name": "math-ponytail",
   "version": "4.8.4",
-  "description": "Lazy senior dev mode. Forces the simplest, shortest solution that actually works: YAGNI, stdlib first, no unrequested abstractions.",
+  "description": "Reduce low-value definitions and notation in mathematical writing while preserving meaning, scope, and legitimate redefinitions.",
   "author": {
-    "name": "Dietrich Gebert",
-    "url": "https://github.com/DietrichGebert"
+    "name": "hochshi",
+    "url": "https://github.com/hochshi"
   },
-  "homepage": "https://github.com/DietrichGebert/ponytail",
-  "repository": "https://github.com/DietrichGebert/ponytail",
+  "homepage": "https://github.com/hochshi/math-ponytail",
+  "repository": "https://github.com/hochshi/math-ponytail",
   "license": "MIT",
-  "keywords": ["yagni", "minimalism", "code-review", "productivity"],
+  "keywords": ["mathematics", "notation", "definitions", "writing"],
   "skills": "./skills/",
-  "hooks": "./hooks/claude-codex-hooks.json",
   "interface": {
-    "displayName": "Ponytail",
-    "shortDescription": "Lazy senior developer mode",
-    "longDescription": "Prefer YAGNI, the standard library, native platform features, and the smallest correct implementation.",
-    "developerName": "Dietrich Gebert",
+    "displayName": "Math Ponytail",
+    "shortDescription": "Remove unnecessary mathematical definitions",
+    "longDescription": "Makes mathematical text easier to read by inlining low-value aliases while preserving first definitions, notation, reminders, local scope, and legitimate redefinitions.",
+    "developerName": "hochshi",
     "category": "Productivity",
-    "capabilities": ["Instructions", "Lifecycle hooks"],
-    "websiteURL": "https://github.com/DietrichGebert/ponytail",
+    "capabilities": ["Instructions"],
+    "websiteURL": "https://github.com/hochshi/math-ponytail",
     "defaultPrompt": [
-      "Use Ponytail mode for this task.",
-      "Review this diff for over-engineering.",
-      "Find the smallest correct implementation."
+      "Simplify the notation in this proof without changing its meaning.",
+      "Find and remove unnecessary definitions in this mathematical text.",
+      "Write this proof using only notation that earns its mental cost."
     ],
     "brandColor": "#111111",
     "composerIcon": "./assets/logo.png",

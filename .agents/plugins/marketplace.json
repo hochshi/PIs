@@ -1,15 +1,15 @@
 {
-  "name": "ponytail",
+  "name": "math-ponytail",
   "interface": {
-    "displayName": "Ponytail"
+    "displayName": "Math Ponytail"
   },
   "plugins": [
     {
-      "name": "ponytail",
+      "name": "math-ponytail",
       "source": {
         "source": "url",
-        "url": "https://github.com/DietrichGebert/ponytail.git",
-        "ref": "main"
+        "url": "https://github.com/hochshi/math-ponytail.git",
+        "ref": "agent/math-definition-discipline"
       },
       "policy": {
         "installation": "AVAILABLE",

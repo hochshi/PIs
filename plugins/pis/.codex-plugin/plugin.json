@@ -1,6 +1,6 @@
 {
   "name": "pis",
-  "version": "0.2.0",
+  "version": "0.2.0+codex.20260806173549",
   "description": "Principal-investigator skills for rigorous, readable scientific writing and analysis.",
   "author": {
     "name": "hochshi",
@@ -9,18 +9,25 @@
   "homepage": "https://github.com/hochshi/math-ponytail",
   "repository": "https://github.com/hochshi/math-ponytail",
   "license": "MIT",
-  "keywords": ["research", "science", "mathematics", "writing"],
+  "keywords": [
+    "research",
+    "science",
+    "mathematics",
+    "writing"
+  ],
   "skills": "./skills/",
   "interface": {
     "displayName": "PIs",
     "shortDescription": "Principal-investigator skills for research",
-    "longDescription": "A growing collection of domain-specific principal-investigator skills. PI-math improves mathematical writing and verifies symbol definitions.",
+    "longDescription": "A growing collection of domain-specific principal-investigator skills. PI-math improves mathematical writing and audits notation for review.",
     "developerName": "hochshi",
     "category": "Productivity",
-    "capabilities": ["Instructions"],
+    "capabilities": [
+      "Instructions"
+    ],
     "websiteURL": "https://github.com/hochshi/math-ponytail",
     "defaultPrompt": [
-      "Use PI-math to simplify this proof and verify every symbol.",
+      "Use PI-math to simplify this proof and audit its notation.",
       "Audit this mathematical text for undefined or unnecessary notation.",
       "Rewrite this proof using only notation that earns its mental cost."
     ]

@@ -1,181 +1,51 @@
 ---
 name: pi-math
-description: >
-  Reduce low-value definitions, verify that every semantic symbol used in an
-  equation is defined in scope, and preserve mathematical meaning. Use when
-  writing or editing proofs, papers, lecture notes, specifications, equations,
-  or other mathematical prose. Distinguish first definitions, notation
-  declarations, reminders, local scope, and legitimate redefinitions.
+description: Reduce low-value definitions and audit mathematical notation without changing meaning. Use when writing or editing proofs, papers, lecture notes, specifications, equations, or other mathematical prose; distinguish first definitions, notation declarations, reminders, local scope, and legitimate redefinitions.
 ---
 
 # PI Math
 
-Every new name or symbol must earn the indirection it creates. Define an object
-only when naming it makes the surrounding mathematics easier to understand.
-Shorter writing is the result; preserving meaning is the constraint.
+Optimize in this order:
 
-## Definition utility gate
+1. Preserve mathematical correctness.
+2. Resolve undefined symbols, collisions, scope errors, and unit conflicts.
+3. Among correct alternatives, minimize introduced notation and indirection.
 
-Before introducing a name, compare its benefit with its reader cost:
+Do not repair an undefined symbol by automatically defining it. Use this order:
 
-- **Benefit:** repeated expression complexity removed, a central concept exposed,
-  or standard notation that makes later reasoning easier to recognize.
-- **Cost:** the definition itself, remembering the symbol, looking it up, possible
-  collisions, and another layer between the reader and the formula.
+1. remove or inline it;
+2. reuse existing notation;
+3. explain the expression in prose;
+4. introduce a definition only when repeated use or conceptual importance earns it.
 
-Keep the definition only when the benefit is clearly greater. Do not invent a
-numeric score; make the comparison from the actual text and uses.
+A symbol normally fails the utility test when it is used once, abbreviates a
+short expression or one-step transformation, aliases another name, or creates
+a definition chain. Keep conventional notation and names that expose a central
+object or replace a genuinely long repeated expression.
 
-Default to inlining when a proposed name:
+## Workflow
 
-- is used once, or only in the immediately following line;
-- abbreviates a short expression or a one-step transformation;
-- is merely an alias of an existing object, such as a rescaling or shift;
-- uses an arbitrary letter that does not suggest its meaning or relation; or
-- creates a chain of definitions the reader must mentally expand.
+Draft the mathematical text directly. Resolve paths relative to this
+`SKILL.md`, save the draft to a temporary Markdown file, and run:
 
-A definition can earn its place when it names a central object used throughout,
-replaces a genuinely long repeated expression, exposes proof structure, matches
-standard mathematical notation, or is needed to state a result cleanly. Prefer
-notation that reveals relationships, such as \(\bar N\) for an average derived
-from \(N\), over an unrelated letter such as \(M\).
+```bash
+python3 scripts/audit_math.py <draft.md>
+```
 
-## Classify before cutting
+Treat the JSON as candidate evidence, not mathematical truth. Repair confirmed
+findings using the order above. Do not increase the number of introduced
+symbols merely to clear an audit warning. Run the audit once more and return
+only the revised mathematical text unless the user asked for a review.
 
-Keep an internal ledger of each term or symbol's meaning, introduction point,
-and scope while writing. Do not print the ledger unless asked.
+If the script cannot run, perform the same checks manually. In either case:
 
-| Role | Test | Treatment |
-|---|---|---|
-| **Unnecessary definition** | Its name or symbol costs at least as much mental work as inlining the expression. | Remove the definition and substitute the expression at its uses. |
-| **First definition** | Introduces new mathematical content in the visible scope. | State it once, including every necessary domain, quantifier, hypothesis, and dependence. |
-| **Notation declaration** | Assigns a symbol or name to an object already defined. | Declare the notation once; do not present it as a new concept. |
-| **Reminder** | Recalls an earlier definition without changing it. | Use only when distance or ambiguity warrants it; keep it shorter than the original and cite it when possible. |
-| **Local definition** | Introduces a meaning inside a proof, example, case, or other bounded scope. | Use it only inside that scope. A later outer-scope definition may be a genuine first definition there. |
-| **Legitimate redefinition** | Changes meaning because the scope, hypotheses, domain, convention, or parameterization changed. | Make the changed context explicit. Never silently overwrite the earlier meaning. |
+- permit a definition immediately after its first equation;
+- recognize binders and unambiguous standard notation;
+- keep local definitions inside their scope;
+- make legitimate redefinitions explicit;
+- preserve domains, quantifiers, hypotheses, dependencies, conventions, and
+  exceptional cases needed for correctness; and
+- flag genuine ambiguity instead of inventing notation to hide it.
 
-## Definition ladder
-
-For every apparent definition, stop at the first matching case:
-
-1. The proposed name fails the definition utility gate: inline it. A new value
-   or meaning does not automatically justify a new name.
-2. The same meaning is already available in the current scope: use it without
-   restating it.
-3. The reader may reasonably lose the reference: add a short reminder, not a
-   second definition.
-4. Only a symbol or abbreviation is new and it passes the utility gate: write a
-   notation declaration.
-5. The meaning is new in this scope and naming it passes the utility gate: write
-   the first definition at first use.
-6. The meaning intentionally changes: state the new scope or changed condition,
-   then redefine it explicitly.
-
-Do not front-load definitions that are never used. Do not delete a definition
-merely because its term appeared earlier: appearance, notation, and definition
-are different events.
-
-## Symbol completeness gate
-
-Before finalizing each equation, resolve every semantic symbol: variables,
-parameters, functions, sets, indices, decorated variants, and custom operators.
-Each must resolve to a controlling meaning from one of these sources:
-
-1. a prior definition, notation declaration, hypothesis, or stated convention;
-2. a defining equality or assignment in the same expression, provided every
-   symbol on its right-hand side is resolved;
-3. a binder in the same expression, such as a quantifier, summation index,
-   integration variable, set-builder variable, or function argument;
-4. an unambiguous standard meaning in the relevant field; or
-5. an explanation immediately following its first equation, before the symbol
-   is used again.
-
-If a symbol has no source, define it at first use, explain it immediately after
-the equation, replace it with an existing symbol, or inline the expression when
-the proposed name fails the definition utility gate. Never add a low-value
-definition merely to satisfy this check.
-
-Do not demand definitions for punctuation or ordinary arithmetic and logical
-operators. Treat a standard symbol as unresolved when its convention is
-material or ambiguous; for example, state whether \(\mathbb N\) includes zero
-when that affects the claim. A binder defines a dummy variable only within its
-scope, and its range must be clear from the expression or surrounding text.
-
-## Editing pass
-
-When revising existing text:
-
-1. Count and inspect the actual uses of every introduced name.
-2. Inline definitions that fail the utility gate, starting with aliases of
-   aliases and short one-use expressions.
-3. Locate the first complete definition of each remaining concept in each scope.
-4. Preserve it and every clause needed for correctness.
-5. Delete later verbatim restatements, or turn them into reminders when the
-   reader needs orientation.
-6. Keep notation declarations, local definitions, and explicit legitimate
-   redefinitions distinct.
-7. Audit every equation with the symbol completeness gate. Repair undefined
-   symbols without introducing low-value aliases.
-8. If two passages may differ mathematically, keep both until their equivalence
-   is established.
-
-## Correctness boundary
-
-Never shorten away a domain or codomain, quantifier, hypothesis, dependency,
-exceptional case, convention, or scope boundary that changes the statement.
-Do not merge concepts because their names or formulas look similar. Treat an
-overloaded symbol as a new declaration when its scope or meaning changes.
-
-When uncertain whether a repetition is redundant, preserve it and flag the
-ambiguity. A slightly repetitive correct definition is better than a concise
-false one.
-
-## Examples
-
-Low-value derived alias:
-
-> \(N=\sum_i x_i\), and define \(M=\frac1nN\).
-
-If \(M\) has few uses, prefer:
-
-> \(N=\sum_i x_i\), so the average is \(\frac1nN\).
-
-Here \(M\) is an **unnecessary definition**: the short substitution is easier
-than remembering an unrelated symbol. If the average is central and repeatedly
-used, meaningful conventional notation such as \(\bar x\) may instead earn a
-definition.
-
-Repeated definition:
-
-> A sequence is Cauchy if ... . Later: Recall that a sequence is Cauchy if ... .
-
-Prefer:
-
-> A sequence is Cauchy if ... . Later: For the Cauchy sequence defined above, ... .
-
-Notation is not a second definition:
-
-> Let \(C(X)\) denote the already-defined space of continuous functions on \(X\).
-
-Local scope may reuse a symbol:
-
-> In this proof, set \(r=\lVert x\rVert\). After the proof, that local meaning expires.
-
-Legitimate redefinition must announce the change:
-
-> For this section only, "graph" means a finite simple graph.
-
-Undefined symbols may be explained immediately after first use:
-
-> \(E=mc^2\), where \(m\) is the rest mass and \(c\) is the speed of light.
-
-Here \(E\), \(m\), and \(c\) are all resolved at the introduction point. By
-contrast, a later unexplained \(q\) must be defined, replaced, or removed.
-
-## Output
-
-For writing tasks, return the revised mathematical text without a definition
-ledger or change log unless requested. For review tasks, identify each later
-occurrence as `unnecessary`, `delete`, `reminder`, `notation`, `local`, or
-`redefine`; mark unresolved equation symbols as `undefined`, and cite the
-reason or first controlling definition.
+For review tasks, report confirmed findings as `undefined`, `collision`,
+`unit-conflict`, `inline`, `reminder`, `notation`, `local`, or `redefine`.

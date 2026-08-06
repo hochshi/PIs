@@ -3,10 +3,11 @@
 A skill-only plugin containing domain-specific principal investigators.
 
 The first skill, **PI-math**, removes low-value mathematical definitions and
-verifies that every semantic symbol in an equation is defined in scope. Future
-skills can be added beside it under `plugins/pis/skills/`.
+audits equation symbols, definition chains, collisions, and unit conventions.
+Its dependency-free audit reports candidates; PI-math confirms them from the
+mathematical context and prefers inlining or reuse over adding notation.
 
-No application, service, runtime, hook, or dependency is included.
+No application, service, MCP server, hook, or third-party dependency is included.
 
 ## Install
 

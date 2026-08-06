@@ -1,15 +1,14 @@
 {
-  "name": "math-ponytail",
+  "name": "pis",
   "interface": {
-    "displayName": "Math Ponytail"
+    "displayName": "PIs"
   },
   "plugins": [
     {
-      "name": "math-ponytail",
+      "name": "pis",
       "source": {
-        "source": "url",
-        "url": "https://github.com/hochshi/math-ponytail.git",
-        "ref": "agent/minimal-math-plugin"
+        "source": "local",
+        "path": "./plugins/pis"
       },
       "policy": {
         "installation": "AVAILABLE",

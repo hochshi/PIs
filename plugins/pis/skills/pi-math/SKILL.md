@@ -1,16 +1,14 @@
 ---
-name: ponytail-math
+name: pi-math
 description: >
-  Reduce low-value definitions, notation, and redefinitions in generated
-  mathematical writing without changing meaning. Use when writing or editing
-  proofs, papers, lecture notes, specifications, or other mathematical prose
-  where extra names and symbols add more mental load than clarity. Distinguishes
-  unnecessary definitions, first definitions, notation declarations, reminders,
-  local scope, and legitimate redefinitions.
-license: MIT
+  Reduce low-value definitions, verify that every semantic symbol used in an
+  equation is defined in scope, and preserve mathematical meaning. Use when
+  writing or editing proofs, papers, lecture notes, specifications, equations,
+  or other mathematical prose. Distinguish first definitions, notation
+  declarations, reminders, local scope, and legitimate redefinitions.
 ---
 
-# Ponytail Math
+# PI Math
 
 Every new name or symbol must earn the indirection it creates. Define an object
 only when naming it makes the surrounding mathematics easier to understand.
@@ -44,8 +42,8 @@ from \(N\), over an unrelated letter such as \(M\).
 
 ## Classify before cutting
 
-Keep an internal ledger of each term or symbol's meaning and scope while
-writing. Do not print the ledger unless asked.
+Keep an internal ledger of each term or symbol's meaning, introduction point,
+and scope while writing. Do not print the ledger unless asked.
 
 | Role | Test | Treatment |
 |---|---|---|
@@ -77,6 +75,32 @@ Do not front-load definitions that are never used. Do not delete a definition
 merely because its term appeared earlier: appearance, notation, and definition
 are different events.
 
+## Symbol completeness gate
+
+Before finalizing each equation, resolve every semantic symbol: variables,
+parameters, functions, sets, indices, decorated variants, and custom operators.
+Each must resolve to a controlling meaning from one of these sources:
+
+1. a prior definition, notation declaration, hypothesis, or stated convention;
+2. a defining equality or assignment in the same expression, provided every
+   symbol on its right-hand side is resolved;
+3. a binder in the same expression, such as a quantifier, summation index,
+   integration variable, set-builder variable, or function argument;
+4. an unambiguous standard meaning in the relevant field; or
+5. an explanation immediately following its first equation, before the symbol
+   is used again.
+
+If a symbol has no source, define it at first use, explain it immediately after
+the equation, replace it with an existing symbol, or inline the expression when
+the proposed name fails the definition utility gate. Never add a low-value
+definition merely to satisfy this check.
+
+Do not demand definitions for punctuation or ordinary arithmetic and logical
+operators. Treat a standard symbol as unresolved when its convention is
+material or ambiguous; for example, state whether \(\mathbb N\) includes zero
+when that affects the claim. A binder defines a dummy variable only within its
+scope, and its range must be clear from the expression or surrounding text.
+
 ## Editing pass
 
 When revising existing text:
@@ -90,7 +114,9 @@ When revising existing text:
    reader needs orientation.
 6. Keep notation declarations, local definitions, and explicit legitimate
    redefinitions distinct.
-7. If two passages may differ mathematically, keep both until their equivalence
+7. Audit every equation with the symbol completeness gate. Repair undefined
+   symbols without introducing low-value aliases.
+8. If two passages may differ mathematically, keep both until their equivalence
    is established.
 
 ## Correctness boundary
@@ -139,9 +165,17 @@ Legitimate redefinition must announce the change:
 
 > For this section only, "graph" means a finite simple graph.
 
+Undefined symbols may be explained immediately after first use:
+
+> \(E=mc^2\), where \(m\) is the rest mass and \(c\) is the speed of light.
+
+Here \(E\), \(m\), and \(c\) are all resolved at the introduction point. By
+contrast, a later unexplained \(q\) must be defined, replaced, or removed.
+
 ## Output
 
 For writing tasks, return the revised mathematical text without a definition
 ledger or change log unless requested. For review tasks, identify each later
 occurrence as `unnecessary`, `delete`, `reminder`, `notation`, `local`, or
-`redefine`, and cite the reason or first controlling definition.
+`redefine`; mark unresolved equation symbols as `undefined`, and cite the
+reason or first controlling definition.

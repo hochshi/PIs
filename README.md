@@ -108,10 +108,12 @@ Lazy, not negligent: trust-boundary validation, data-loss handling, security, an
 ## Mathematics writing
 
 The bundled `ponytail-math` skill applies the same deletion instinct to
-mathematical prose: define each object once per scope, then reuse it. It keeps
-first definitions, notation declarations, reminders, proof-local definitions,
-and legitimate redefinitions separate so brevity cannot silently change the
-mathematics.
+mathematical prose: every new name must save more mental work than it creates.
+Short one-use expressions, arbitrary aliases, and chains of derived symbols are
+inlined. Definitions that name central or repeatedly used concepts remain. The
+skill also keeps first definitions, notation declarations, reminders,
+proof-local definitions, and legitimate redefinitions separate so brevity
+cannot silently change the mathematics.
 
 Ask your agent to use `ponytail-math` while writing or editing a proof, paper,
 or set of notes. Skill-capable hosts discover it from `skills/`; Codex users can

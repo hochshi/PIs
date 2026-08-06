@@ -11,8 +11,9 @@ const skill = fs.readFileSync(
 );
 const prose = skill.replace(/\s+/g, ' ');
 
-test('math skill exposes the five definition roles', () => {
+test('math skill exposes the six definition roles', () => {
   for (const role of [
+    'Unnecessary definition',
     'First definition',
     'Notation declaration',
     'Reminder',
@@ -20,6 +21,18 @@ test('math skill exposes the five definition roles', () => {
     'Legitimate redefinition',
   ]) {
     assert.match(skill, new RegExp(`\\*\\*${role}\\*\\*`));
+  }
+});
+
+test('math skill rejects low-value derived aliases', () => {
+  for (const invariant of [
+    'Every new name or symbol must earn the indirection it creates',
+    'used once, or only in the immediately following line',
+    'merely an alias of an existing object, such as a rescaling or shift',
+    'Here \\(M\\) is an **unnecessary definition**',
+    'meaningful conventional notation',
+  ]) {
+    assert.ok(prose.includes(invariant), `missing definition-utility rule: ${invariant}`);
   }
 });
 

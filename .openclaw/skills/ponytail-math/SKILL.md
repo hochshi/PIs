@@ -1,14 +1,41 @@
 ---
 name: ponytail-math
-description: "Reduce repeated definitions in mathematical writing while preserving notation, scope, hypotheses, and legitimate redefinitions."
+description: "Remove low-value mathematical names and aliases while preserving useful notation, scope, hypotheses, and legitimate redefinitions."
 homepage: https://github.com/DietrichGebert/ponytail
 license: MIT
 ---
 
 # Ponytail Math
 
-Define each mathematical object once per scope. Reuse it thereafter. Shorter
-writing is the result; preserving meaning is the constraint.
+Every new name or symbol must earn the indirection it creates. Define an object
+only when naming it makes the surrounding mathematics easier to understand.
+Shorter writing is the result; preserving meaning is the constraint.
+
+## Definition utility gate
+
+Before introducing a name, compare its benefit with its reader cost:
+
+- **Benefit:** repeated expression complexity removed, a central concept exposed,
+  or standard notation that makes later reasoning easier to recognize.
+- **Cost:** the definition itself, remembering the symbol, looking it up, possible
+  collisions, and another layer between the reader and the formula.
+
+Keep the definition only when the benefit is clearly greater. Do not invent a
+numeric score; make the comparison from the actual text and uses.
+
+Default to inlining when a proposed name:
+
+- is used once, or only in the immediately following line;
+- abbreviates a short expression or a one-step transformation;
+- is merely an alias of an existing object, such as a rescaling or shift;
+- uses an arbitrary letter that does not suggest its meaning or relation; or
+- creates a chain of definitions the reader must mentally expand.
+
+A definition can earn its place when it names a central object used throughout,
+replaces a genuinely long repeated expression, exposes proof structure, matches
+standard mathematical notation, or is needed to state a result cleanly. Prefer
+notation that reveals relationships, such as \(\bar N\) for an average derived
+from \(N\), over an unrelated letter such as \(M\).
 
 ## Classify before cutting
 
@@ -17,6 +44,7 @@ writing. Do not print the ledger unless asked.
 
 | Role | Test | Treatment |
 |---|---|---|
+| **Unnecessary definition** | Its name or symbol costs at least as much mental work as inlining the expression. | Remove the definition and substitute the expression at its uses. |
 | **First definition** | Introduces new mathematical content in the visible scope. | State it once, including every necessary domain, quantifier, hypothesis, and dependence. |
 | **Notation declaration** | Assigns a symbol or name to an object already defined. | Declare the notation once; do not present it as a new concept. |
 | **Reminder** | Recalls an earlier definition without changing it. | Use only when distance or ambiguity warrants it; keep it shorter than the original and cite it when possible. |
@@ -27,13 +55,17 @@ writing. Do not print the ledger unless asked.
 
 For every apparent definition, stop at the first matching case:
 
-1. The same meaning is already available in the current scope: use it without
+1. The proposed name fails the definition utility gate: inline it. A new value
+   or meaning does not automatically justify a new name.
+2. The same meaning is already available in the current scope: use it without
    restating it.
-2. The reader may reasonably lose the reference: add a short reminder, not a
+3. The reader may reasonably lose the reference: add a short reminder, not a
    second definition.
-3. Only a symbol or abbreviation is new: write a notation declaration.
-4. The meaning is new in this scope: write the first definition at first use.
-5. The meaning intentionally changes: state the new scope or changed condition,
+4. Only a symbol or abbreviation is new and it passes the utility gate: write a
+   notation declaration.
+5. The meaning is new in this scope and naming it passes the utility gate: write
+   the first definition at first use.
+6. The meaning intentionally changes: state the new scope or changed condition,
    then redefine it explicitly.
 
 Do not front-load definitions that are never used. Do not delete a definition
@@ -44,13 +76,16 @@ are different events.
 
 When revising existing text:
 
-1. Locate the first complete definition in each scope.
-2. Preserve it and every clause needed for correctness.
-3. Delete later verbatim restatements, or turn them into reminders when the
+1. Count and inspect the actual uses of every introduced name.
+2. Inline definitions that fail the utility gate, starting with aliases of
+   aliases and short one-use expressions.
+3. Locate the first complete definition of each remaining concept in each scope.
+4. Preserve it and every clause needed for correctness.
+5. Delete later verbatim restatements, or turn them into reminders when the
    reader needs orientation.
-4. Keep notation declarations, local definitions, and explicit legitimate
+6. Keep notation declarations, local definitions, and explicit legitimate
    redefinitions distinct.
-5. If two passages may differ mathematically, keep both until their equivalence
+7. If two passages may differ mathematically, keep both until their equivalence
    is established.
 
 ## Correctness boundary
@@ -65,6 +100,19 @@ ambiguity. A slightly repetitive correct definition is better than a concise
 false one.
 
 ## Examples
+
+Low-value derived alias:
+
+> \(N=\sum_i x_i\), and define \(M=\frac1nN\).
+
+If \(M\) has few uses, prefer:
+
+> \(N=\sum_i x_i\), so the average is \(\frac1nN\).
+
+Here \(M\) is an **unnecessary definition**: the short substitution is easier
+than remembering an unrelated symbol. If the average is central and repeatedly
+used, meaningful conventional notation such as \(\bar x\) may instead earn a
+definition.
 
 Repeated definition:
 
@@ -90,5 +138,5 @@ Legitimate redefinition must announce the change:
 
 For writing tasks, return the revised mathematical text without a definition
 ledger or change log unless requested. For review tasks, identify each later
-occurrence as `delete`, `reminder`, `notation`, `local`, or `redefine`, and cite
-the first controlling definition.
+occurrence as `unnecessary`, `delete`, `reminder`, `notation`, `local`, or
+`redefine`, and cite the reason or first controlling definition.

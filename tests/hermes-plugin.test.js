@@ -86,6 +86,7 @@ print(json.dumps({'skills': ctx.skills, 'hooks': ctx.hooks, 'commands': ctx.comm
     'ponytail-debt',
     'ponytail-gain',
     'ponytail-help',
+    'ponytail-math',
     'ponytail-review',
   ]);
   assert.ok(data.skills.every(([, skillPath]) => skillPath.endsWith('/SKILL.md')));

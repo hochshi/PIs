@@ -24,7 +24,7 @@ const VERSIONED_MANIFESTS = [
 ];
 // Gemini auto-discovers these by directory; the manifest is only useful if they exist.
 const REUSED_COMMANDS = ['commands/ponytail.toml', 'commands/ponytail-review.toml'];
-const REUSED_SKILLS = ['skills/ponytail/SKILL.md'];
+const REUSED_SKILLS = ['skills/ponytail/SKILL.md', 'skills/ponytail-math/SKILL.md'];
 // Gemini CLI auto-loads this exact path for extension hooks. Ponytail's
 // Claude/Codex hook map uses events Gemini does not support, so it must stay
 // behind the host-specific plugin manifests instead.

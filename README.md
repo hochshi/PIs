@@ -105,6 +105,19 @@ The ladder runs *after* it understands the problem, not instead of it: it reads 
 
 Lazy, not negligent: trust-boundary validation, data-loss handling, security, and accessibility are never on the chopping block.
 
+## Mathematics writing
+
+The bundled `ponytail-math` skill applies the same deletion instinct to
+mathematical prose: define each object once per scope, then reuse it. It keeps
+first definitions, notation declarations, reminders, proof-local definitions,
+and legitimate redefinitions separate so brevity cannot silently change the
+mathematics.
+
+Ask your agent to use `ponytail-math` while writing or editing a proof, paper,
+or set of notes. Skill-capable hosts discover it from `skills/`; Codex users can
+invoke `@ponytail-math`. The skill keeps its definition ledger internal and
+returns clean mathematical text unless you ask for a review report.
+
 ## Install
 
 The most effort ponytail will ever ask of you:
@@ -190,7 +203,7 @@ The Gemini adapter intentionally does not ship a root `hooks/hooks.json`: Gemini
 
 ### Qoder
 
-Qoder auto-loads `AGENTS.md` from the repo root as always-on context, so running ponytail from a checkout works with zero setup. For per-project rules, copy [`.qoder/rules/ponytail.md`](.qoder/rules/ponytail.md) into your project's `.qoder/rules/`. The six ponytail skills (`/ponytail`, `/ponytail-review`, `/ponytail-audit`, `/ponytail-debt`, `/ponytail-gain`, `/ponytail-help`) are available via Qoder's Skill system; the plugin manifest at [`.qoder-plugin/plugin.json`](.qoder-plugin/plugin.json) points at the `skills/` directory.
+Qoder auto-loads `AGENTS.md` from the repo root as always-on context, so running ponytail from a checkout works with zero setup. For per-project rules, copy [`.qoder/rules/ponytail.md`](.qoder/rules/ponytail.md) into your project's `.qoder/rules/`. The bundled skills, including `ponytail-math`, are available via Qoder's Skill system; the plugin manifest at [`.qoder-plugin/plugin.json`](.qoder-plugin/plugin.json) points at the `skills/` directory.
 
 For full plugin-tier support (automatic mode activation + ruleset injection on every prompt), add the hooks from [`hooks/qoder-hooks.json`](hooks/qoder-hooks.json) to your `.qoder/settings.json`. Replace `PONYTAIL_DIR` with the path to your ponytail checkout. Qoder's `UserPromptSubmit` hook activates the default mode on first prompt and injects the ruleset every turn; `PreToolUse` with `task|Task` matcher injects the ruleset into subagents. Level switches (`/ponytail lite|full|ultra|off`) work automatically.
 
@@ -244,7 +257,7 @@ Installs ponytail as a Devin plugin; skills are available as `/ponytail:ponytail
 clawhub install ponytail
 ```
 
-Installs ponytail as an OpenClaw skill from ClawHub; the review, audit, debt, gain, and help skills install the same way (`clawhub install ponytail-review`, and so on). OpenClaw applies it on coding tasks and also exposes it as a `/ponytail` command. Without ClawHub, copy [`.openclaw/skills/ponytail`](.openclaw/skills/) into `~/.openclaw/skills/`.
+Installs ponytail as an OpenClaw skill from ClawHub; the math, review, audit, debt, gain, and help skills install the same way (`clawhub install ponytail-math`, and so on). OpenClaw applies the base skill on coding tasks and also exposes it as a `/ponytail` command. Without ClawHub, copy the desired directory from [`.openclaw/skills/`](.openclaw/skills/) into `~/.openclaw/skills/`.
 
 That was it. He'd be proud. He won't say it.
 

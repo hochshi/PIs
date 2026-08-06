@@ -1,6 +1,6 @@
 {
   "name": "math-ponytail",
-  "version": "4.8.4",
+  "version": "0.1.0",
   "description": "Reduce low-value definitions and notation in mathematical writing while preserving meaning, scope, and legitimate redefinitions.",
   "author": {
     "name": "hochshi",
@@ -23,9 +23,6 @@
       "Simplify the notation in this proof without changing its meaning.",
       "Find and remove unnecessary definitions in this mathematical text.",
       "Write this proof using only notation that earns its mental cost."
-    ],
-    "brandColor": "#111111",
-    "composerIcon": "./assets/logo.png",
-    "logo": "./assets/logo.png"
+    ]
   }
 }

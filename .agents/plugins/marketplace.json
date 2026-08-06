@@ -9,7 +9,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/hochshi/math-ponytail.git",
-        "ref": "agent/math-definition-discipline"
+        "ref": "agent/minimal-math-plugin"
       },
       "policy": {
         "installation": "AVAILABLE",

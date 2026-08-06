@@ -7,7 +7,6 @@ description: >
   where extra names and symbols add more mental load than clarity. Distinguishes
   unnecessary definitions, first definitions, notation declarations, reminders,
   local scope, and legitimate redefinitions.
-argument-hint: "[text or target]"
 license: MIT
 ---
 
